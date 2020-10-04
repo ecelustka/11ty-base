@@ -6,12 +6,14 @@ const pluginNavigation = require('@11ty/eleventy-navigation')
 const markdownIt = require('markdown-it')
 const markdownItAnchor = require('markdown-it-anchor')
 const scss = require('./plugins/scss')
-const postcss = require('./plugins/postcss');
+const postcss = require('./plugins/postcss')
+const babel = require('./plugins/babel')
 const pwa = require('eleventy-plugin-pwa')
 
 module.exports = function (eleventyConfig) {
     scss('./src/scss/index.scss', './_site/css/index.css')
     postcss('./_site/css/index.css')
+    babel('./src/js/index.js', './_site/js/index.js')
 
     eleventyConfig.addPlugin(pluginRss)
     eleventyConfig.addPlugin(pluginSyntaxHighlight)
