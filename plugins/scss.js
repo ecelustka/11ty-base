@@ -1,5 +1,5 @@
 const sass = require('node-sass-promise')
-const fs = require('fs-extra')
+const fs = require('fs')
 const path = require('path')
 
 module.exports = (scssPath, cssPath) => {
