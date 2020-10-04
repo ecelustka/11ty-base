@@ -7,7 +7,12 @@
     "watch": "eleventy --watch",
     "serve": "eleventy --serve",
     "start": "eleventy --serve",
-    "debug": "DEBUG=* eleventy"
+    "debug": "DEBUG=* eleventy",
+    "js:lint": "eslint './**/*.{js,njk}'",
+    "js:fix": "eslint --fix './**/*.{js,njk}'",
+    "css:lint": "stylelint './**/*.{css,njk}'",
+    "css:fix": "stylelint --fix './**/*.{css,njk}'",
+    "format": "prettier --write './**/*.{js,njk,css}'"
   },
   "repository": {
     "type": "git",
