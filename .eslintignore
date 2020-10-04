@@ -1,0 +1,24 @@
+############################
+# Folders
+############################
+
+.cache
+.idea
+.temp
+.tmp
+build
+dist
+nbproject
+node_modules
+ssl
+static
+temp
+_site
+
+############################
+# Files
+############################
+
+*.html
+*.min.*
+package-lock.json
