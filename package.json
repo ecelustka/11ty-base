@@ -43,6 +43,7 @@
     "luxon": "^1.21.3",
     "markdown-it": "^8.4.2",
     "markdown-it-anchor": "^5.2.5",
+    "node-sass-promise": "^1.0.0",
     "prettier": "^2.1.2",
     "stylelint": "^13.7.2",
     "stylelint-find-rules": "^2.2.0",

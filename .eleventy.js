@@ -5,8 +5,11 @@ const pluginSyntaxHighlight = require('@11ty/eleventy-plugin-syntaxhighlight')
 const pluginNavigation = require('@11ty/eleventy-navigation')
 const markdownIt = require('markdown-it')
 const markdownItAnchor = require('markdown-it-anchor')
+const scss = require('./plugins/scss')
 
 module.exports = function (eleventyConfig) {
+    scss('./src/scss/index.scss', './_site/css/index.css')
+
     eleventyConfig.addPlugin(pluginRss)
     eleventyConfig.addPlugin(pluginSyntaxHighlight)
     eleventyConfig.addPlugin(pluginNavigation)
@@ -117,10 +120,10 @@ module.exports = function (eleventyConfig) {
 
         // These are all optional, defaults are shown:
         dir: {
-          input: '.',
-          includes: 'src/_includes',
-          data: 'src/_data',
-          output: '_site',
+            input: '.',
+            includes: 'src/_includes',
+            data: 'src/_data',
+            output: '_site',
         },
     }
 }
