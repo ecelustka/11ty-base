@@ -33,7 +33,9 @@ module.exports = (postCssPath) => {
     }
 
     //Watch for changes to postCssPath directory...
-    fs.watch(path.dirname(postCssPath), () => {
-        postCssFce(postCssPath)
-    })
+    if (process.env.NODE_ENV === 'development') {
+        fs.watch(path.dirname(postCssPath), () => {
+            postCssFce(postCssPath)
+        })
+    }
 }

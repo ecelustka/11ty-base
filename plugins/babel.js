@@ -12,15 +12,17 @@ module.exports = (filePath, outputFile) => {
             fs.writeFile(outputFile, result.code, () => true)
         })
 
-    fs.watch(path.dirname(filePath), () => {
-        //Render css from sass...
-        babel
-            .transformFileAsync(filePath, {
-                presets: ['@babel/preset-env'],
-            })
-            .then((result) => {
-                console.log(result)
-                fs.writeFile(outputFile, result.code, () => true)
-            })
-    })
+    if (process.env.NODE_ENV === 'development') {
+        fs.watch(path.dirname(filePath), () => {
+            //Render css from sass...
+            babel
+                .transformFileAsync(filePath, {
+                    presets: ['@babel/preset-env'],
+                })
+                .then((result) => {
+                    console.log(result)
+                    fs.writeFile(outputFile, result.code, () => true)
+                })
+        })
+    }
 }

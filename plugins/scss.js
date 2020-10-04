@@ -14,12 +14,14 @@ module.exports = (scssPath, cssPath) => {
             .catch((error) => console.error(error))
     }
     //Watch for changes to scssPath directory...
-    fs.watch(path.dirname(scssPath), () => {
-        //Render css from sass...
-        sass.render({ file: scssPath })
-            //Then write result css string to cssPath file
-            .then((result) => fs.writeFile(cssPath, result.css.toString()))
-            .catch((error) => console.error(error))
-        console.log(`Watching ${path.dirname(scssPath)}...`)
-    })
+    if (process.env.NODE_ENV === 'development') {
+        fs.watch(path.dirname(scssPath), () => {
+            //Render css from sass...
+            sass.render({ file: scssPath })
+                //Then write result css string to cssPath file
+                .then((result) => fs.writeFile(cssPath, result.css.toString()))
+                .catch((error) => console.error(error))
+            console.log(`Watching ${path.dirname(scssPath)}...`)
+        })
+    }
 }
