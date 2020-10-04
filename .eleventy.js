@@ -6,6 +6,7 @@ const pluginNavigation = require('@11ty/eleventy-navigation')
 const markdownIt = require('markdown-it')
 const markdownItAnchor = require('markdown-it-anchor')
 const scss = require('./plugins/scss')
+const pwa = require('eleventy-plugin-pwa')
 
 module.exports = function (eleventyConfig) {
     scss('./src/scss/index.scss', './_site/css/index.css')
@@ -13,6 +14,11 @@ module.exports = function (eleventyConfig) {
     eleventyConfig.addPlugin(pluginRss)
     eleventyConfig.addPlugin(pluginSyntaxHighlight)
     eleventyConfig.addPlugin(pluginNavigation)
+    eleventyConfig.addPlugin(pwa, {
+        swDest: './_site/sw.js',
+        globDirectory: './_site',
+        globPatterns: ['**/*.{png,ico,json,woff,woff2,jpg,jpeg,webp,html,js,css}'],
+    })
 
     eleventyConfig.setDataDeepMerge(true)
 
