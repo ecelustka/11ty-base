@@ -7,11 +7,9 @@ const markdownIt = require('markdown-it')
 const markdownItAnchor = require('markdown-it-anchor')
 const scss = require('./plugins/scss.js')
 const postcss = require('./plugins/postcss')
-const babel = require('./plugins/babel')
 const pwa = require('eleventy-plugin-pwa')
 
 module.exports = function (eleventyConfig) {
-    // babel('./src/js/index.js', './_site/js/index.js')
     eleventyConfig.addPlugin(scss, {
         srcFiles: ['./src/scss/index.scss'],
         outputDir: './_site/css',
