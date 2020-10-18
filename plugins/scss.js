@@ -37,11 +37,15 @@ module.exports = async (eleventyInstance, options) => {
                 })
 
                 // Write result css string to cssPath file
-                fs.writeFileSync(ouputFileName, file.css, 'utf-8')
+                await fsAsync.writeFile(ouputFileName, file.css, 'utf-8')
 
                 // Write result maps
                 if (file.map) {
-                    fs.writeFileSync(`${ouputFileName}.map`, file.map, 'utf-8')
+                    await fsAsync.writeFile(
+                        `${ouputFileName}.map`,
+                        file.map,
+                        'utf-8'
+                    )
                 }
             })
         } else {
