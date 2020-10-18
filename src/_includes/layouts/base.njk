@@ -21,11 +21,11 @@
             title="{{ metadata.title }}"
         />
 
-        <script>
+        {# <script>
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register("/sw.js");
         }
-        </script>
+        </script> #}
     </head>
     <body>
         <header>
@@ -86,6 +86,6 @@
         <footer></footer>
 
         <!-- Current page: {{ page.url | url }} -->
-        <script src="{{ '/js/index.js' | url }}"></script>
+        <script src="{{ '/js/index.bundle.js' | url }}"></script>
     </body>
 </html>

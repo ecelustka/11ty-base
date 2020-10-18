@@ -3,9 +3,13 @@
   "version": "5.0.2",
   "description": "A starter repository for a blog web site using the Eleventy static site generator.",
   "scripts": {
-    "build": "eleventy",
-    "watch": "eleventy --watch",
-    "serve": "eleventy --serve",
+    "clean": "rimraf _site",
+    "build": " npm-run-all clean -p build:*",
+    "build:11ty": "eleventy --quiet",
+    "build:rollup": "rollup -c",
+    "serve": "npm-run-all clean build:* -p serve:*",
+    "serve:11ty": "eleventy --serve",
+    "serve:rollup": "rollup -c -w",
     "debug": "DEBUG=* eleventy",
     "js:lint": "eslint './**/*.{js,njk}'",
     "js:fix": "eslint --fix './**/*.{js,njk}'",
@@ -36,6 +40,7 @@
     "@babel/parser": "^7.11.5",
     "@babel/preset-env": "^7.11.5",
     "@fullhuman/postcss-purgecss": "^3.0.0",
+    "@rollup/plugin-node-resolve": "^9.0.0",
     "@visionappscz/stylelint-config-visionapps": "^1.1.0",
     "@visionappscz/stylelint-config-visionapps-order": "^1.1.0",
     "autoprefixer": "^9.8.0",
@@ -47,9 +52,15 @@
     "luxon": "^1.21.3",
     "markdown-it": "^8.4.2",
     "markdown-it-anchor": "^5.2.5",
+    "npm-run-all": "^4.1.5",
     "postcss": "^7.0.35",
     "postcss-load-config": "^3.0.0",
     "prettier": "^2.1.2",
+    "rimraf": "^3.0.2",
+    "rollup": "^2.32.0",
+    "rollup-plugin-babel": "^4.4.0",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-terser": "^7.0.2",
     "sass": "^1.27.0",
     "stylelint": "^13.7.2",
     "stylelint-find-rules": "^2.2.0",
@@ -59,6 +70,7 @@
     "stylelint-selector-bem-pattern": "^2.1.0"
   },
   "dependencies": {
-    "eleventy-plugin-pwa": "^1.0.8"
+    "eleventy-plugin-pwa": "^1.0.8",
+    "minilazyload": "^2.3.4"
   }
 }

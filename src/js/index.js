@@ -1,3 +1,3 @@
-const a = 'Hi babel'
+import miniLazyLoad from 'minilazyload'
 
-console.log(a)
+new miniLazyLoad()
