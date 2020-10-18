@@ -11,11 +11,13 @@ const babel = require('./plugins/babel')
 const pwa = require('eleventy-plugin-pwa')
 
 module.exports = function (eleventyConfig) {
-    scss('./src/scss/index.scss', './_site/css/index.css')
-
-    // postcss('./_site/css/index.css')
     // babel('./src/js/index.js', './_site/js/index.js')
-    eleventyConfig.addWatchTarget('./src/scss/')
+    eleventyConfig.addPlugin(scss, {
+        srcFiles: ['./src/scss/index.scss'],
+        outputDir: './_site/css',
+        sourcemaps: true,
+    })
+    eleventyConfig.addWatchTarget('./src/scss/**/*.*')
 
     eleventyConfig.addPlugin(pluginRss)
     eleventyConfig.addPlugin(pluginSyntaxHighlight)
