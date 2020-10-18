@@ -1,41 +1,55 @@
-const postcss = require('postcss')
 const fs = require('fs')
 const path = require('path')
-const autoprefixer = require('autoprefixer')
-const cssnano = require('cssnano')
-const purgecss = require('@fullhuman/postcss-purgecss')
+const fsAsync = fs.promises
+const postcss = require('postcss')
+const postcssConfig = require('postcss-load-config')
 
-const postCssFce = (path) => {
-    fs.readFile(path, (err, css) => {
-        postcss([
-            autoprefixer,
-            cssnano,
-            purgecss({
-                content: ['./**/*.html', './**/*.css'],
-            }),
-        ])
-            .process(css, { from: path, to: path })
-            .then((result) => {
-                fs.writeFile(path, result.css, () => true)
-                if (result.map) {
-                    fs.writeFile(`${path}.map`, result.map, () => true)
-                }
-            })
-    })
+const defaultOptions = {
+    srcFiles: ['./_site/css/index.css'],
 }
 
-module.exports = (postCssPath) => {
-    //If postCssPath directory doesn't exist...
-    if (!fs.existsSync(path.dirname(postCssPath))) {
-        console.error('CSS does not exists')
-    } else {
-        postCssFce(postCssPath)
-    }
+module.exports = async (eleventyInstance, options) => {
+    try {
+        if (options.srcFiles instanceof Array) {
+            setTimeout(() => {
+                options.srcFiles.forEach(async (item) => {
+                    const postcssDir = fs.existsSync(path.dirname(item))
 
-    //Watch for changes to postCssPath directory...
-    if (process.env.NODE_ENV === 'development') {
-        fs.watch(path.dirname(postCssPath), () => {
-            postCssFce(postCssPath)
-        })
+                    //If postCssPath directory doesn't exist...
+                    if (!postcssDir) {
+                        throw new Error(
+                            'POSTCSS plugin: CSS file does not exists.'
+                        )
+                    }
+
+                    // Read file
+                    const file = await fsAsync.readFile(item, 'utf-8')
+
+                    // Load postcss plugins and options
+                    const { plugins, options } = await postcssConfig()
+
+                    // process file
+                    const processedFile = await postcss(plugins).process(
+                        file,
+                        options
+                    )
+
+                    // write processed file
+                    await fsAsync.writeFile(item, processedFile.css)
+
+                    // if maps, write processed maps
+                    if (processedFile.map) {
+                        await fsAsync.writeFile(
+                            `${item}.map`,
+                            processedFile.map
+                        )
+                    }
+                })
+            }, 300)
+        } else {
+            throw new Error("POSTCSS plugin: key srcFiles isn't an Array")
+        }
+    } catch (error) {
+        throw new Error(error)
     }
 }

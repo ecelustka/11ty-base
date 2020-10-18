@@ -15,9 +15,14 @@ module.exports = function (eleventyConfig) {
     eleventyConfig.addPlugin(scss, {
         srcFiles: ['./src/scss/index.scss'],
         outputDir: './_site/css',
-        sourcemaps: true,
+        sourcemaps: false,
     })
-    eleventyConfig.addWatchTarget('./src/scss/**/*.*')
+    eleventyConfig.addWatchTarget('./src/scss/')
+
+    eleventyConfig.addPlugin(postcss, {
+        srcFiles: ['./_site/css/index.css']
+    })
+    eleventyConfig.addWatchTarget('./_site/css/')
 
     eleventyConfig.addPlugin(pluginRss)
     eleventyConfig.addPlugin(pluginSyntaxHighlight)
