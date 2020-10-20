@@ -19,6 +19,11 @@
 - refactor folder structure
 - 11ty base config
 - Docs
-- Hot realoading styles
 - Minify html on build
 - Hash files
+
+
+# DONE 
+
+## DEV features
+- Hot realoading styles

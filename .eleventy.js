@@ -4,7 +4,6 @@ const pluginRss = require('@11ty/eleventy-plugin-rss')
 const pluginSyntaxHighlight = require('@11ty/eleventy-plugin-syntaxhighlight')
 const pluginNavigation = require('@11ty/eleventy-navigation')
 const markdownIt = require('markdown-it')
-const markdownItAnchor = require('markdown-it-anchor')
 const scss = require('./plugins/scss')
 const postcss = require('./plugins/postcss')
 const pwa = require('eleventy-plugin-pwa')
@@ -101,17 +100,32 @@ module.exports = function (eleventyConfig) {
         html: true,
         breaks: true,
         linkify: true,
-    }).use(markdownItAnchor, {
-        permalink: true,
-        permalinkClass: 'direct-link',
-        permalinkSymbol: '#',
     })
+
     eleventyConfig.setLibrary('md', markdownLibrary)
 
     // Browsersync Overrides
     eleventyConfig.setBrowserSyncConfig({
         callbacks: {
-            ready: function (err, browserSync) {
+            ready: (err, browserSync) => {
+                browserSync.publicInstance.watch('./src/**/*.scss', async () => {
+                    await scss(eleventyConfig, {
+                        srcFiles: ['./src/scss/index.scss'],
+                        outputDir: './_site/css',
+                        sourcemaps: false,
+                    })
+
+                    browserSync.publicInstance.stream()
+                })
+
+                browserSync.publicInstance.watch('./src/**/*.scss', async () => {
+                    await postcss(eleventyConfig, {
+                        srcFiles: ['./_site/css/index.css']
+                    })
+
+                    browserSync.publicInstance.stream()
+                })
+
                 const content_404 = fs.readFileSync('_site/404.html')
 
                 browserSync.addMiddleware('*', (req, res) => {
