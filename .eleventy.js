@@ -5,9 +5,10 @@ const pluginSyntaxHighlight = require('@11ty/eleventy-plugin-syntaxhighlight')
 const pluginNavigation = require('@11ty/eleventy-navigation')
 const markdownIt = require('markdown-it')
 const markdownItAnchor = require('markdown-it-anchor')
-const scss = require('./plugins/scss.js')
+const scss = require('./plugins/scss')
 const postcss = require('./plugins/postcss')
 const pwa = require('eleventy-plugin-pwa')
+const czechNbsp = require('./filters/czechNbsp');
 
 module.exports = function (eleventyConfig) {
     eleventyConfig.addPlugin(scss, {
@@ -42,6 +43,8 @@ module.exports = function (eleventyConfig) {
             'dd LLL yyyy'
         )
     })
+
+    eleventyConfig.addNunjucksFilter('czechNbsp', czechNbsp);
 
     // https://html.spec.whatwg.org/multipage/common-microsyntaxes.html#valid-date-string
     eleventyConfig.addFilter('htmlDateString', (dateObj) => {
