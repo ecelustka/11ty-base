@@ -10,18 +10,6 @@ const pwa = require('eleventy-plugin-pwa')
 const czechNbsp = require('./filters/czechNbsp');
 
 module.exports = function (eleventyConfig) {
-    eleventyConfig.addPlugin(scss, {
-        srcFiles: ['./src/scss/index.scss'],
-        outputDir: './_site/css',
-        sourcemaps: false,
-    })
-    eleventyConfig.addWatchTarget('./src/scss/')
-
-    eleventyConfig.addPlugin(postcss, {
-        srcFiles: ['./_site/css/index.css']
-    })
-    eleventyConfig.addWatchTarget('./_site/css/')
-
     eleventyConfig.addPlugin(pluginRss)
     eleventyConfig.addPlugin(pluginSyntaxHighlight)
     eleventyConfig.addPlugin(pluginNavigation)
@@ -137,6 +125,16 @@ module.exports = function (eleventyConfig) {
         },
         ui: false,
         ghostMode: false,
+    })
+
+    eleventyConfig.addPlugin(scss, {
+        srcFiles: ['./src/scss/index.scss'],
+        outputDir: './_site/css',
+        sourcemaps: false,
+    })
+
+    eleventyConfig.addPlugin(postcss, {
+        srcFiles: ['./_site/css/index.css']
     })
 
     return {

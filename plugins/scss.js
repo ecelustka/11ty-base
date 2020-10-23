@@ -1,7 +1,6 @@
 const fs = require('fs')
 const path = require('path')
 const sass = require('sass')
-const fsAsync = fs.promises
 
 const defaultOptions = {
     srcFiles: ['./src/scss/index.scss'],
@@ -9,15 +8,13 @@ const defaultOptions = {
     sourcemaps: false,
 }
 
-module.exports = async (eleventyInstance, options) => {
+module.exports = (eleventyInstance, options = defaultOptions) => {
     try {
-        const cssDir = fs.existsSync(
-            options.outputDir || defaultOptions.outputDir
-        )
+        const cssDir = fs.existsSync(options.outputDir)
 
         //If cssPath directory doesn't exist...
         if (!cssDir) {
-            await fsAsync.mkdir(options.outputDir || defaultOptions.outputDir, {
+            fs.mkdirSync(options.outputDir, {
                 recursive: true,
             })
         }
@@ -25,9 +22,9 @@ module.exports = async (eleventyInstance, options) => {
         // Check if variable is an Array
         if (options.srcFiles instanceof Array) {
             // Render each file
-            options.srcFiles.forEach(async (item) => {
+            options.srcFiles.forEach((item) => {
                 // prettier-ignore
-                const ouputFileName = `${options.outputDir || defaultOptions.outputDir}/${path.parse(item).name}.css`
+                const ouputFileName = `${options.outputDir}/${path.parse(item).name}.css`
 
                 //Render css from sass
                 const file = sass.renderSync({
@@ -37,15 +34,11 @@ module.exports = async (eleventyInstance, options) => {
                 })
 
                 // Write result css string to cssPath file
-                await fsAsync.writeFile(ouputFileName, file.css, 'utf-8')
+                fs.writeFileSync(ouputFileName, file.css, 'utf-8')
 
                 // Write result maps
                 if (file.map) {
-                    await fsAsync.writeFile(
-                        `${ouputFileName}.map`,
-                        file.map,
-                        'utf-8'
-                    )
+                    fs.writeFileSync(`${ouputFileName}.map`, file.map, 'utf-8')
                 }
             })
         } else {
