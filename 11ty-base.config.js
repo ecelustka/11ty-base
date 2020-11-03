@@ -1,4 +1,11 @@
 module.exports = {
+    eleventy: {
+        // DOCS: https://www.11ty.dev/docs/config/
+        input: '.',
+        includes: 'src/_includes',
+        data: 'src/_data',
+        output: '_site',
+    },
     filters: {
         czechNbsp: {
             use: false,
