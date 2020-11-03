@@ -1,53 +1,102 @@
 const { DateTime } = require('luxon')
+const config = require('./11ty-base.config');
+const czechNbsp = require('./filters/czechNbsp');
 const fs = require('fs')
-const pluginRss = require('@11ty/eleventy-plugin-rss')
-const pluginSyntaxHighlight = require('@11ty/eleventy-plugin-syntaxhighlight')
-const pluginNavigation = require('@11ty/eleventy-navigation')
 const markdownIt = require('markdown-it')
-const scss = require('./plugins/scss')
+const pluginNavigation = require('@11ty/eleventy-navigation')
+const pluginRss = require('@11ty/eleventy-plugin-rss')
 const postcss = require('./plugins/postcss')
 const pwa = require('eleventy-plugin-pwa')
-const czechNbsp = require('./filters/czechNbsp');
+const scss = require('./plugins/scss')
 
 module.exports = function (eleventyConfig) {
-    eleventyConfig.addPlugin(pluginRss)
-    eleventyConfig.addPlugin(pluginSyntaxHighlight)
-    eleventyConfig.addPlugin(pluginNavigation)
+    if (config.plugins.rss.use) {
+        eleventyConfig.addPlugin(pluginRss)
+    }
 
-    // ENABLE PWA
-    // eleventyConfig.addPlugin(pwa, {
-    //     swDest: './_site/sw.js',
-    //     globDirectory: './_site',
-    //     globPatterns: ['**/*.{png,ico,json,woff,woff2,jpg,jpeg,webp,html,js,css}'],
-    // })
+    if (config.plugins.navigation.use) {
+        eleventyConfig.addPlugin(pluginNavigation)
+    }
+
+    if (config.plugins.pwa.use) {
+        eleventyConfig.addPlugin(pwa, config.plugins.pwa.options)
+    }
+
+    if (config.filters.czechNbsp.use) {
+        eleventyConfig.addNunjucksFilter('czechNbsp', czechNbsp)
+    }
+
+    // https://html.spec.whatwg.org/multipage/common-microsyntaxes.html#valid-date-string
+    if (config.filters.htmlDateString.use) {
+        eleventyConfig.addFilter('htmlDateString', (dateObj) => {
+            return DateTime.fromJSDate(dateObj, { zone: config.filters.htmlDateString.options.zone }).toFormat(config.filters.htmlDateString.options.format)
+        })
+    }
+
+    if (config.filters.readableDate.use) {
+        eleventyConfig.addFilter('readableDate', (dateObj) => {
+            return DateTime.fromJSDate(dateObj, { zone: config.filters.readableDate.options.zone }).toFormat(config.filters.readableDate.options.format)
+        })
+    }
+
+    if (config.features.sass.use) {
+        eleventyConfig.addPlugin(scss, config.features.sass.options)
+    }
+
+    if (config.features.postcss.use) {
+        eleventyConfig.addPlugin(postcss, config.features.postcss.options)
+    }
+
+    if (config.features.imgFolder.use) {
+        eleventyConfig.addPassthroughCopy('img')
+    }
+
+    if (config.features.staticFolder.use) {
+        eleventyConfig.addPassthroughCopy({
+            './static': '.',
+        })
+    }
+
+    /* Markdown Overrides */
+    let markdownLibrary = markdownIt(config.features.markdownIt.options)
+    eleventyConfig.setLibrary('md', markdownLibrary)
 
     eleventyConfig.setDataDeepMerge(true)
 
+    // Browsersync Overrides
+    eleventyConfig.setBrowserSyncConfig({
+        callbacks: {
+            ready: (err, browserSync) => {
+                browserSync.publicInstance.watch('./src/**/*.scss', async () => {
+                    if (config.features.sass.use) {
+                        await scss(eleventyConfig, config.features.sass.options)
+                    }
+
+                    browserSync.publicInstance.stream()
+                })
+
+                browserSync.publicInstance.watch('./src/**/*.scss', async () => {
+                    if (config.features.postcss.use) {
+                        await postcss(eleventyConfig, config.features.postcss.options)
+                    }
+
+                    browserSync.publicInstance.stream()
+                })
+
+                const content_404 = fs.readFileSync('_site/404.html')
+
+                browserSync.addMiddleware('*', (req, res) => {
+                    // Provides the 404 content without redirect.
+                    res.write(content_404)
+                    res.end()
+                })
+            },
+        },
+        ui: false,
+        ghostMode: false,
+    })
+
     eleventyConfig.addLayoutAlias('post', 'layouts/post.njk')
-
-    eleventyConfig.addFilter('readableDate', (dateObj) => {
-        return DateTime.fromJSDate(dateObj, { zone: 'utc' }).toFormat(
-            'dd LLL yyyy'
-        )
-    })
-
-    eleventyConfig.addNunjucksFilter('czechNbsp', czechNbsp);
-
-    // https://html.spec.whatwg.org/multipage/common-microsyntaxes.html#valid-date-string
-    eleventyConfig.addFilter('htmlDateString', (dateObj) => {
-        return DateTime.fromJSDate(dateObj, { zone: 'utc' }).toFormat(
-            'yyyy-LL-dd'
-        )
-    })
-
-    // Get the first `n` elements of a collection.
-    eleventyConfig.addFilter('head', (array, n) => {
-        if (n < 0) {
-            return array.slice(n)
-        }
-
-        return array.slice(0, n)
-    })
 
     eleventyConfig.addCollection('tagList', function (collection) {
         let tagSet = new Set()
@@ -76,65 +125,6 @@ module.exports = function (eleventyConfig) {
 
         // returning an array in addCollection works in Eleventy 0.5.3
         return [...tagSet]
-    })
-
-    eleventyConfig.addPassthroughCopy('img')
-    eleventyConfig.addPassthroughCopy({
-        './static': '.',
-    })
-
-    /* Markdown Overrides */
-    let markdownLibrary = markdownIt({
-        html: true,
-        breaks: true,
-        linkify: true,
-    })
-
-    eleventyConfig.setLibrary('md', markdownLibrary)
-
-    // Browsersync Overrides
-    eleventyConfig.setBrowserSyncConfig({
-        callbacks: {
-            ready: (err, browserSync) => {
-                browserSync.publicInstance.watch('./src/**/*.scss', async () => {
-                    await scss(eleventyConfig, {
-                        srcFiles: ['./src/scss/index.scss'],
-                        outputDir: './_site/css',
-                        sourcemaps: false,
-                    })
-
-                    browserSync.publicInstance.stream()
-                })
-
-                browserSync.publicInstance.watch('./src/**/*.scss', async () => {
-                    await postcss(eleventyConfig, {
-                        srcFiles: ['./_site/css/index.css']
-                    })
-
-                    browserSync.publicInstance.stream()
-                })
-
-                const content_404 = fs.readFileSync('_site/404.html')
-
-                browserSync.addMiddleware('*', (req, res) => {
-                    // Provides the 404 content without redirect.
-                    res.write(content_404)
-                    res.end()
-                })
-            },
-        },
-        ui: false,
-        ghostMode: false,
-    })
-
-    eleventyConfig.addPlugin(scss, {
-        srcFiles: ['./src/scss/index.scss'],
-        outputDir: './_site/css',
-        sourcemaps: false,
-    })
-
-    eleventyConfig.addPlugin(postcss, {
-        srcFiles: ['./_site/css/index.css']
     })
 
     return {
