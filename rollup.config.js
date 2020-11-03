@@ -3,7 +3,7 @@ import commonjs from '@rollup/plugin-commonjs'
 import resolve from '@rollup/plugin-node-resolve'
 import { terser } from 'rollup-plugin-terser'
 
-const dev = process.env.NODE_ENV !== 'production'
+const dev = process.env.ELEVENTY_ENV !== 'production'
 
 export default {
     input: 'src/js/index.js',

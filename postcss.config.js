@@ -5,9 +5,13 @@ module.exports = {
     map: false,
     plugins: [
         require('autoprefixer'),
-        require('cssnano'),
-        purgecss({
-            content: ['./**/*.html'],
-        }),
+        ...(process.env.ELEVENTY_ENV === 'production'
+            ? [
+                  require('cssnano'),
+                  purgecss({
+                      content: ['./**/*.html'],
+                  }),
+            ]
+            : []),
     ],
 }
