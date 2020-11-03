@@ -2,7 +2,6 @@ module.exports = (value) => {
     // start of a paragrafs regex
     value = value.replace(
         /(>|\(|\[|\{)?(A|I|O|U|K|S|V|Z)(<\/[a-z0-9]>)? /g,
-        // new RegExp('(>|\\(|\\[|\\{)?(A|I|O|U|K|S|V|Z)(</[a-z0-9]>)? ', 'g'),
         // prettier-ignore
         '\$1\$2\$3\&#160;'
     )
