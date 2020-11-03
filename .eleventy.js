@@ -2,6 +2,7 @@ const { DateTime } = require('luxon')
 const config = require('./11ty-base.config');
 const czechNbsp = require('./filters/czechNbsp');
 const fs = require('fs')
+const htmlmin = require('html-minifier');
 const markdownIt = require('markdown-it')
 const pluginNavigation = require('@11ty/eleventy-navigation')
 const pluginRss = require('@11ty/eleventy-plugin-rss')
@@ -55,6 +56,20 @@ module.exports = function (eleventyConfig) {
         eleventyConfig.addPassthroughCopy({
             './static': '.',
         })
+    }
+
+    if (process.env.ELEVENTY_ENV === 'production') {
+        eleventyConfig.addTransform('htmlmin', (content, outputPath) => {
+            if (outputPath.endsWith('.html')) {
+                const minified = htmlmin.minify(content, {
+                    useShortDoctype: true,
+                    removeComments: true,
+                    collapseWhitespace: true
+                });
+                return minified;
+            }
+            return content;
+        });
     }
 
     /* Markdown Overrides */
