@@ -17,7 +17,6 @@
 - refactor _data folder
 - generate favicons
 - refactor folder structure
-- 11ty base config
 - Docs
 - Minify html on build
 - Hash files
@@ -27,3 +26,4 @@
 
 ## DEV features
 - Hot realoading styles
+- 11ty base config
