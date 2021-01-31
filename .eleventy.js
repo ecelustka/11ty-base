@@ -83,11 +83,12 @@ module.exports = function (eleventyConfig) {
         callbacks: {
             ready: (err, browserSync) => {
                 browserSync.publicInstance.watch('./src/**/*.scss', async () => {
+
                     if (config.features.sass.use) {
                         await scss(eleventyConfig, config.features.sass.options)
                     }
 
-                    browserSync.publicInstance.stream()
+                    browserSync.publicInstance.reload()
                 })
 
                 browserSync.publicInstance.watch('./src/**/*.scss', async () => {
@@ -95,7 +96,7 @@ module.exports = function (eleventyConfig) {
                         await postcss(eleventyConfig, config.features.postcss.options)
                     }
 
-                    browserSync.publicInstance.stream()
+                    browserSync.publicInstance.reload()
                 })
 
                 const content_404 = fs.readFileSync(`${config.eleventy.output}/404.html`)
