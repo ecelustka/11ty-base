@@ -1,6 +1,7 @@
 # TODO
 
 ## HTML (Content)
+
 - Meta tags
 - Rich snippets
 
@@ -9,20 +10,21 @@
 ## Javascript
 
 ## Static
+
 - Robots.txt
 - Humans.txt
 
 ## DEV features
-- refactor _data folder
+
+- refactor \_data folder
 - generate favicons
 - refactor folder structure
 - Docs
-- Hash files
 
-
-# DONE 
+# DONE
 
 ## DEV features
+
 - Hot realoading styles
 - 11ty base config
 - Config postcss with env variable
