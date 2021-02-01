@@ -50,6 +50,10 @@
         <footer></footer>
 
         <!-- Current page: {{ page.url | url }} -->
-        <script src="{{ '/js/index.bundle.js' | url }}"></script>
+        {% if enviroment.prod %}
+            <script src="{{ manifest['index.js'] | url }}"></script>
+        {% else %}
+            <script src="{{ '/js/index.bundle.js' | url }}"></script>
+        {% endif %}
     </body>
 </html>
