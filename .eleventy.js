@@ -10,6 +10,7 @@ const postcss = require('./plugins/postcss')
 const pwa = require('eleventy-plugin-pwa')
 const scss = require('./plugins/scss')
 const cacheBuster = require('@mightyplow/eleventy-plugin-cache-buster');
+const nunjucksMarkdownFilter = require('nunjucks-markdown-filter');
 
 module.exports = function (eleventyConfig) {
     if (config.plugins.rss.use) {

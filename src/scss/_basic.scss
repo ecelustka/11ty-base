@@ -51,6 +51,10 @@ header:after {
     display: table;
     clear: both;
 }
+footer {
+    border-top: 1px solid #ccc;
+    padding: 1.5rem 1rem;
+}
 table {
     margin: 1em 0;
 }

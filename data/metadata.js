@@ -1,5 +1,5 @@
 module.exports = {
-    title: 'Your Blog Name',
+    title: '11ty-base',
     url: 'https://example.com/',
     description: 'I am writing about my experiences as a naval navel-gazer.',
     feed: {

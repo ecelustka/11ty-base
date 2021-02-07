@@ -1,17 +1,9 @@
 ---
-permalink: /
-layout: layouts/home.njk
-eleventyNavigation:
-    key: Home
-    order: 1
+layout: layouts/basic.njk
 ---
 
-<h1>Latest posts</h1>
+<h1>{{ title }}</h1>
 
-{% set postslist = collections.posts %} {% set postslistCounter = collections.posts | length %} {% include
-"postslist.njk" %}
-
-<p>
-    More posts can be found in
-    <a href="{{ '/posts/' | url }}">the archive</a>.
-</p>
+<div>
+    {{ content | md | safe }}
+</div>

@@ -2,7 +2,7 @@ module.exports = {
     eleventy: {
         // DOCS: https://www.11ty.dev/docs/config/
         input: '.',
-        includes: 'src/_includes',
+        includes: 'src/',
         data: 'data',
         output: '_site',
     },
