@@ -56,8 +56,11 @@ module.exports = function (eleventyConfig) {
     }
 
     if (config.features.imgFolder.use) {
-        eleventyConfig.addPassthroughCopy('img')
+        eleventyConfig.addPassthroughCopy({
+            './src/img': 'img',
+        });
     }
+
 
     if (config.features.staticFolder.use) {
         eleventyConfig.addPassthroughCopy({
