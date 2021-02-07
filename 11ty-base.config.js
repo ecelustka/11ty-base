@@ -7,6 +7,10 @@ module.exports = {
         output: '_site',
     },
     filters: {
+        markdown: {
+            // INFO: https://www.npmjs.com/package/nunjucks-markdown-filter
+            use: true,
+        },
         czechNbsp: {
             use: false,
         },

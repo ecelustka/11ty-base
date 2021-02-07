@@ -41,6 +41,12 @@ module.exports = function (eleventyConfig) {
         })
     }
 
+    if (config.filters.markdown.use) {
+        eleventyConfig.addFilter('md', (value) => {
+            return nunjucksMarkdownFilter(value)
+        })
+    }
+
     if (config.features.sass.use) {
         eleventyConfig.addPlugin(scss, config.features.sass.options)
     }
