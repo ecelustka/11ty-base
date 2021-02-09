@@ -2,7 +2,6 @@
 
 ## HTML (Content)
 
-- Meta tags
 - Rich snippets
 
 ## Styles
@@ -16,9 +15,6 @@
 
 ## DEV features
 
-- refactor \_data folder
-- generate favicons
-- refactor folder structure
 - Docs
 
 # DONE
@@ -29,3 +25,6 @@
 - 11ty base config
 - Config postcss with env variable
 - Minify html on build
+- refactor data folder
+- Meta tags
+- refactor folder structure
