@@ -29,16 +29,11 @@
 	"feed": {
 		"subtitle": "Feed subtitle",
 		"filename": "feed.xml",
-		"path": "feed/feed.xml",
-		"id": "https://example.com/"
+		"path": "/feed/feed.xml",
+		"id": ""
 	},
 	"jsonfeed": {
 		"path": "/feed/feed.json",
 		"url": "https://example.com/feed/feed.json"
-	},
-	"author": {
-		"author": "Emil Celustka",
-		"email": "emilio@rosfomberg.com",
-		"url": "https://example.com/about/"
 	}
 }
