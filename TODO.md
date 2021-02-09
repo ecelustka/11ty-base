@@ -10,8 +10,8 @@
 
 ## Static
 
-- Robots.txt
 - Humans.txt
+- Favicons
 
 ## DEV features
 
@@ -19,12 +19,11 @@
 
 # DONE
 
-## DEV features
-
 - Hot realoading styles
 - 11ty base config
 - Config postcss with env variable
 - Minify html on build
 - refactor data folder
 - Meta tags
+- robots.txt
 - refactor folder structure
