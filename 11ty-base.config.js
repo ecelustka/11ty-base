@@ -3,7 +3,7 @@ module.exports = {
         // DOCS: https://www.11ty.dev/docs/config/
         input: '.',
         includes: 'src/',
-        data: 'data',
+        data: 'data/',
         output: '_site',
     },
     filters: {
