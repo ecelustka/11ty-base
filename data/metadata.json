@@ -1,0 +1,44 @@
+{
+	"lang": "en",
+	"url": "https://example.com",
+	"cloudinary_url": "",
+	"seo": {
+		"title": "11ty-base",
+		"description": "11ty-base FALLBACK SEO description",
+		"robots": "index,follow",
+		"author": "/humans.txt"
+	},
+	"open_graph": {
+		"fb_id": "",
+		"type": "website",
+		"site_name": "11ty-base",
+		"title": "11ty-base FALLBACK OG title",
+		"description": "11ty-base FALLBACK OG description",
+		"images_type": "",
+		"images_width": "",
+		"images_height": "",
+		"images": ["11ty-base-fallback-og-images.png"]
+	},
+	"twitter_cards": {
+		"type": "summary_large_image",
+		"title": "11ty-base FALLBACK TW title",
+		"description": "11ty-base FALLBACK TW description",
+		"site": "@twitter-account",
+		"images": ["11ty-base-fallback-tw-images.png"]
+	},
+	"feed": {
+		"subtitle": "Feed subtitle",
+		"filename": "feed.xml",
+		"path": "feed/feed.xml",
+		"id": "https://example.com/"
+	},
+	"jsonfeed": {
+		"path": "/feed/feed.json",
+		"url": "https://example.com/feed/feed.json"
+	},
+	"author": {
+		"author": "Emil Celustka",
+		"email": "emilio@rosfomberg.com",
+		"url": "https://example.com/about/"
+	}
+}
