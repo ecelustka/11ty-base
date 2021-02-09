@@ -16,7 +16,7 @@
 
         <link rel="stylesheet" href="{{ '/css/index.css' | url }}" />
 
-        {# <link
+        <link
             rel="alternate"
             href="{{ metadata.feed.path | url }}"
             type="application/atom+xml"
@@ -27,8 +27,9 @@
             href="{{ metadata.jsonfeed.path | url }}"
             type="application/json"
             title="{{ metadata.title }}"
-        /> #}
+        />
 
+        {# uncomment if you are using pwa plugin :) #}
         {# <script>
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register("/sw.js");
