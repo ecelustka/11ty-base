@@ -5,7 +5,12 @@ singleQuote: true
 bracketSpacing: true
 semi: false
 arrowParens: always
-
+plugins:
+  - 'prettier-plugin-twig-melody'
+twigMelodyPlugins:
+  - 'node_modules/prettier-plugin-twig-enhancements'
+twigPrintWidth: 120
+twigFollowOfficialCodingStandards: false
 overrides:
   - files:
       - '*.js'
@@ -30,6 +35,6 @@ overrides:
   - files:
       - '*.njk'
     options:
-      parser: html
+      parser: melody
       printWidth: 120
       htmlWhitespaceSensitivity: ignore
