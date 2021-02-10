@@ -1,16 +1,16 @@
 const { DateTime } = require('luxon')
-const config = require('./11ty-base.config');
-const czechNbsp = require('./filters/czechNbsp');
+const config = require('./11ty-base.config')
+const czechNbsp = require('./filters/czechNbsp')
 const fs = require('fs')
-const htmlmin = require('html-minifier');
+const htmlmin = require('html-minifier')
 const markdownIt = require('markdown-it')
 const pluginNavigation = require('@11ty/eleventy-navigation')
 const pluginRss = require('@11ty/eleventy-plugin-rss')
 const postcss = require('./plugins/postcss')
 const pwa = require('eleventy-plugin-pwa')
 const scss = require('./plugins/scss')
-const cacheBuster = require('@mightyplow/eleventy-plugin-cache-buster');
-const nunjucksMarkdownFilter = require('nunjucks-markdown-filter');
+const cacheBuster = require('@mightyplow/eleventy-plugin-cache-buster')
+const nunjucksMarkdownFilter = require('nunjucks-markdown-filter')
 
 module.exports = function (eleventyConfig) {
     if (config.plugins.rss.use) {
@@ -32,13 +32,17 @@ module.exports = function (eleventyConfig) {
     // https://html.spec.whatwg.org/multipage/common-microsyntaxes.html#valid-date-string
     if (config.filters.htmlDateString.use) {
         eleventyConfig.addFilter('htmlDateString', (dateObj) => {
-            return DateTime.fromJSDate(dateObj, { zone: config.filters.htmlDateString.options.zone }).toFormat(config.filters.htmlDateString.options.format)
+            return DateTime.fromJSDate(dateObj, {
+                zone: config.filters.htmlDateString.options.zone,
+            }).toFormat(config.filters.htmlDateString.options.format)
         })
     }
 
     if (config.filters.readableDate.use) {
         eleventyConfig.addFilter('readableDate', (dateObj) => {
-            return DateTime.fromJSDate(dateObj, { zone: config.filters.readableDate.options.zone }).toFormat(config.filters.readableDate.options.format)
+            return DateTime.fromJSDate(dateObj, {
+                zone: config.filters.readableDate.options.zone,
+            }).toFormat(config.filters.readableDate.options.format)
         })
     }
 
@@ -59,9 +63,8 @@ module.exports = function (eleventyConfig) {
     if (config.features.imgFolder.use) {
         eleventyConfig.addPassthroughCopy({
             './src/img': 'img',
-        });
+        })
     }
-
 
     if (config.features.staticFolder.use) {
         eleventyConfig.addPassthroughCopy({
@@ -75,16 +78,18 @@ module.exports = function (eleventyConfig) {
                 const minified = htmlmin.minify(content, {
                     useShortDoctype: true,
                     removeComments: true,
-                    collapseWhitespace: true
-                });
-                return minified;
+                    collapseWhitespace: true,
+                })
+                return minified
             }
-            return content;
-        });
+            return content
+        })
 
-        eleventyConfig.addPlugin(cacheBuster({
-            outputDirectory: config.eleventy.output
-        }));
+        eleventyConfig.addPlugin(
+            cacheBuster({
+                outputDirectory: config.eleventy.output,
+            })
+        )
     }
 
     /* Markdown Overrides */
@@ -97,24 +102,37 @@ module.exports = function (eleventyConfig) {
     eleventyConfig.setBrowserSyncConfig({
         callbacks: {
             ready: (err, browserSync) => {
-                browserSync.publicInstance.watch('./src/**/*.scss', async () => {
+                browserSync.publicInstance.watch(
+                    './src/**/*.scss',
+                    async () => {
+                        if (config.features.sass.use) {
+                            await scss(
+                                eleventyConfig,
+                                config.features.sass.options
+                            )
+                        }
 
-                    if (config.features.sass.use) {
-                        await scss(eleventyConfig, config.features.sass.options)
+                        browserSync.publicInstance.reload()
                     }
+                )
 
-                    browserSync.publicInstance.reload()
-                })
+                browserSync.publicInstance.watch(
+                    './src/**/*.scss',
+                    async () => {
+                        if (config.features.postcss.use) {
+                            await postcss(
+                                eleventyConfig,
+                                config.features.postcss.options
+                            )
+                        }
 
-                browserSync.publicInstance.watch('./src/**/*.scss', async () => {
-                    if (config.features.postcss.use) {
-                        await postcss(eleventyConfig, config.features.postcss.options)
+                        browserSync.publicInstance.reload()
                     }
+                )
 
-                    browserSync.publicInstance.reload()
-                })
-
-                const content_404 = fs.readFileSync(`${config.eleventy.output}/404.html`)
+                const content_404 = fs.readFileSync(
+                    `${config.eleventy.output}/404.html`
+                )
 
                 browserSync.addMiddleware('*', (req, res) => {
                     // Provides the 404 content without redirect.

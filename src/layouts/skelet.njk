@@ -4,11 +4,8 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-        {% include "partials/meta-seo.njk" %}
-
-        {% include "partials/meta-open-graph.njk" %}
-
-        {% include "partials/meta-twitter-cards.njk" %}
+        {% include "partials/meta-seo.njk" %} {% include "partials/meta-open-graph.njk" %} {% include
+        "partials/meta-twitter-cards.njk" %}
 
         <link rel="stylesheet" href="{{ '/css/index.css' | url }}" />
 
@@ -25,20 +22,18 @@
             title="{{ metadata.title }}"
         />
 
-        {# uncomment if you are using pwa plugin :) #}
-        {# <script>
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register("/sw.js");
-        }
-        </script> #}
+        {# uncomment if you are using pwa plugin :) #} {#
+        <script>
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('/sw.js')
+            }
+        </script>
+        #}
     </head>
     <body {% if templateClass %} class="{{ templateClass }}" {% endif %}>
-
         {% include "components/header.njk" %}
 
-        <main>
-            {{ content | safe }}
-        </main>
+        <main>{{ content | safe }}</main>
 
         {% include "components/footer.njk" %}
 

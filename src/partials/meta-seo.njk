@@ -1,11 +1,11 @@
-<meta name="robots" content="{{ seo.robots or metadata.seo.robots }}">
+<meta name="robots" content="{{ seo.robots or metadata.seo.robots }}" />
 
-<link rel="canonical" href="{{ metadata.url }}{{ permalink or title | slug }}">
+<link rel="canonical" href="{{ metadata.url }}{{ permalink or title | slug }}" />
 
 <title>{{ seo.title or metadata.seo.title }}</title>
 
-<meta name="description" content="{{ seo.description or metadata.seo.description }}">
+<meta name="description" content="{{ seo.description or metadata.seo.description }}" />
 
 {% if metadata.seo.author is defined and metadata.seo.author|length > 0 %}
-    <meta name="author" content="{{ metadata.seo.author }}">
+<meta name="author" content="{{ metadata.seo.author }}" />
 {% endif %}

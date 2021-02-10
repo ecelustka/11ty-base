@@ -13,11 +13,11 @@
     "serve:rollup": "rollup -c -w",
     "serve:11ty": "eleventy --serve",
     "debug": "ELEVENTY_ENV=debug DEBUG=* eleventy",
-    "js:lint": "eslint './**/*.{js,njk}'",
-    "js:fix": "eslint --fix './**/*.{js,njk}'",
-    "css:lint": "stylelint './**/*.{css,njk}'",
-    "css:fix": "stylelint --fix './**/*.{css,njk}'",
-    "format": "prettier --write './**/*.{js,njk,css}'"
+    "js:lint": "eslint './**/*.js'",
+    "js:fix": "eslint --fix './**/*.js'",
+    "css:lint": "stylelint './**/*.{css,scss}'",
+    "css:fix": "stylelint --fix './**/*.{css,scss}'",
+    "format": "prettier --write './**/*.{js,njk,css,scss}'"
   },
   "repository": {
     "type": "git",
