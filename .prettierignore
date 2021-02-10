@@ -25,3 +25,5 @@ _variables.scss
 package-lock.json
 u-debugger.scss
 u-show-grid.scss
+
+extra/json.njk

@@ -1,12 +1,9 @@
-{# prettier-ignore-start #}
 ---
 # Metadata comes from _data/metadata.json
 permalink: '{{ metadata.jsonfeed.permalink | url }}'
 eleventyExcludeFromCollections: true
 ---
-{# prettier-ignore-end #}
 
-{# prettier-ignore-start #}
 { "version": "https://jsonfeed.org/version/1", "title": "{{ metadata.seo.title }}", "home_page_url": "{{ metadata.url |
 url }}", "feed_url": "{{ metadata.jsonfeed.path }}", "description": "{{ metadata.seo.description }}", "items": [ {%- for
 post in collections.posts | reverse %} {%- set absolutePostUrl %}{{ post.url | url | absoluteUrl(metadata.url) }}{%
