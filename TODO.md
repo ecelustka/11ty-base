@@ -10,7 +10,6 @@
 
 ## Static
 
-- Humans.txt
 - Favicons
 
 ## DEV features
@@ -26,4 +25,5 @@
 - refactor data folder
 - Meta tags
 - robots.txt
+- Humans.txt
 - refactor folder structure
