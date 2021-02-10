@@ -1,3 +1,75 @@
 [build]
   publish = "_site"
-  command = "DEBUG=* eleventy"
+  command = "npm run build"
+
+# =============
+# OPTIONAL NETLIFY HEADERS
+# =============
+
+# [[headers]]
+#   for = "/"
+#   [headers.values]
+#     X-Xss-Protection = "1; mode=block"
+#     X-Content-Type-Options = "nosniff"
+#     Feature-Policy = "microphone 'none'; camera 'none'; usb 'none'"
+#     Content-Security-Policy = "frame-ancestors 'self'; base-uri 'self'"
+#     Referrer-Policy =	"no-referrer-when-downgrade"
+#     Strict-Transport-Security	= "max-age=15768000"
+#
+# [[headers]]
+#   for = "/*"
+#   [headers.values]
+#     X-Content-Type-Options = "nosniff"
+#     Strict-Transport-Security = "max-age=15768000"
+#
+# [[headers]]
+#   for = "*.html"
+#   [headers.values]
+#     X-UA-Compatible = "ie=edge"
+#     X-Xss-Protection = "1; mode=block"
+#     X-Content-Type-Options = "nosniff"
+#     Feature-Policy = "microphone 'none', camera 'none', usb 'none'"
+#     Content-Security-Policy = "frame-ancestors 'self'; base-uri 'self'"
+#     Referrer-Policy =	"no-referrer-when-downgrade"
+#     Strict-Transport-Security	= "max-age=15768000"
+#
+# [[headers]]
+#   for = "*.js"
+#   [headers.values]
+#     Content-Type = "text/javascript; charset=UTF-8"
+#     Cache-Control = "immutable, max-age=31536000"
+#     X-Content-Type-Options = "nosniff"
+#
+# [[headers]]
+#   for = "*.css"
+#   [headers.values]
+#     Cache-Control = "immutable, max-age=31536000"
+#     X-Content-Type-Options = "nosniff"
+#
+# [[headers]]
+#   for = "*.ico"
+#   [headers.values]
+#     Content-Type = "image/x-icon"
+#     X-Content-Type-Options = "nosniff"
+#
+# [[headers]]
+#   for = "*.svg"
+#   [headers.values]
+#     Content-Type = "image/svg+xml; charset=UTF-8"
+#     Cache-Control = "immutable, max-age=31536000"
+#     Strict-Transport-Security	= "max-age=15768000"
+#     X-Content-Type-Options = "nosniff"
+#
+# [[headers]]
+#   for = "*.woff"
+#   [headers.values]
+#     Content-Type = "font/woff"
+#     Cache-Control = "immutable, max-age=31556926"
+#     X-Content-Type-Options = "nosniff"
+#
+# [[headers]]
+#   for = "*.woff2"
+#   [headers.values]
+#     Content-Type = "font/woff2"
+#     Cache-Control = "immutable, max-age=31556926"
+#     X-Content-Type-Options = "nosniff"
