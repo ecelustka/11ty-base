@@ -20,5 +20,6 @@ _site
 ############################
 
 *.html
+*.njk
 *.min.*
 package-lock.json
