@@ -1,9 +1,11 @@
+{# prettier-ignore-start #}
 ---
 layout: layouts/basic.njk
 ---
+{# prettier-ignore-end #}
 
 <h1>{{ title }}</h1>
 
 <div>{{ content | md | safe }}</div>
 
-{% set postslist = collections.posts %} {% include "components/postslist.njk" %}
+{% set postslist = collections.posts %} {% include 'components/postslist.njk' %}

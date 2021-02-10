@@ -4,8 +4,11 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-        {% include "partials/meta-seo.njk" %} {% include "partials/meta-open-graph.njk" %} {% include
-        "partials/meta-twitter-cards.njk" %}
+        {# prettier-ignore-start #}
+        {% include 'partials/meta-seo.njk' %}
+        {% include 'partials/meta-open-graph.njk' %}
+        {% include 'partials/meta-twitter-cards.njk' %}
+        {# prettier-ignore-end #}
 
         <link rel="stylesheet" href="{{ '/css/index.css' | url }}" />
 
@@ -30,12 +33,12 @@
         </script>
         #}
     </head>
-    <body {% if templateClass %} class="{{ templateClass }}" {% endif %}>
-        {% include "components/header.njk" %}
+    <body class="{{ templateClass or '' }}">
+        {% include 'components/header.njk' %}
 
         <main>{{ content | safe }}</main>
 
-        {% include "components/footer.njk" %}
+        {% include 'components/footer.njk' %}
 
         <!-- Current page: {{ page.url | url }} -->
 
