@@ -14,9 +14,9 @@
 		"site_name": "11ty-base",
 		"title": "11ty-base FALLBACK OG title",
 		"description": "11ty-base FALLBACK OG description",
-		"images_type": "",
-		"images_width": "",
-		"images_height": "",
+		"images_type": "png",
+		"images_width": "1200",
+		"images_height": "630",
 		"images": ["11ty-base-fallback-og-images.png"]
 	},
 	"twitter_cards": {
@@ -27,13 +27,15 @@
 		"images": ["11ty-base-fallback-tw-images.png"]
 	},
 	"feed": {
-		"subtitle": "Feed subtitle",
+		"title": "Feed title",
+		"description": "Feed description",
 		"filename": "feed.xml",
-		"path": "/feed/feed.xml",
+		"permalink": "/feed/feed.xml",
+		"path": "https://example.com/feed/feed.xml",
 		"id": ""
 	},
 	"jsonfeed": {
-		"path": "/feed/feed.json",
-		"url": "https://example.com/feed/feed.json"
+		"permalink": "/feed/feed.json",
+		"path": "https://example.com/feed/feed.json"
 	}
 }

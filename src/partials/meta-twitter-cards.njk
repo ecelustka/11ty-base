@@ -1,22 +1,23 @@
-<meta name="twitter:card" content="{{ twitter_cards.type or metadata.twitter_cards.type }}">
+{% if twitter_cards.use is defined and twitter_cards.use == true %}
+    <meta name="twitter:card" content="{{ twitter_cards.type or metadata.twitter_cards.type }}">
 
-<meta property="twitter:site" content="{{ metadata.twitter_cards.site }}">
+    <meta property="twitter:site" content="{{ metadata.twitter_cards.site }}">
 
-<meta property="twitter:title" content="{{ twitter_cards.title or open_graph.title or metadata.twitter_cards.title }}">
+    <meta property="twitter:title" content="{{ twitter_cards.title or open_graph.title or metadata.twitter_cards.title }}">
 
-<meta property="twitter:description" content="{{ twitter_cards.description or open_graph.description or metadata.twitter_cards.description }}">
+    <meta property="twitter:description" content="{{ twitter_cards.description or open_graph.description or metadata.twitter_cards.description }}">
 
-
-{% if twitter_cards.images | length > 0 %}
-    {% for image in twitter_cards.images %}
+    {% if twitter_cards.images | length > 0 %}
+        {% for image in twitter_cards.images %}
+                <meta property="twitter:image" content="{{ metadata.cloudinary_url }}{{ image }}">
+        {% endfor %}
+    {% elseif open_graph.images | length > 0  %}
+        {% for image in open_graph.images %}
+                <meta property="twitter:image" content="{{ metadata.cloudinary_url }}{{ image }}">
+        {% endfor %}
+    {% else %}
+        {% for image in metadata.twitter_cards.images %}
             <meta property="twitter:image" content="{{ metadata.cloudinary_url }}{{ image }}">
-    {% endfor %}
-{% else if open_graph.images | length > 0  %}
-    {% for image in open_graph.images %}
-            <meta property="twitter:image" content="{{ metadata.cloudinary_url }}{{ image }}">
-    {% endfor %}
-{% else %}
-    {% for image in metadata.twitter_cards.images %}
-        <meta property="twitter:image" content="{{ metadata.cloudinary_url }}{{ image }}">
-    {% endfor %}
+        {% endfor %}
+    {% endif %}
 {% endif %}

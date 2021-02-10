@@ -2,8 +2,8 @@ module.exports = {
     eleventy: {
         // DOCS: https://www.11ty.dev/docs/config/
         input: '.',
-        includes: 'src/',
-        data: 'data/',
+        includes: 'src',
+        data: 'data',
         output: '_site',
     },
     filters: {

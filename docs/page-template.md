@@ -5,13 +5,15 @@ eleventyExcludeFromCollections: false # optional
 eleventyNavigation: # optional
   key: Home
   order: 1
-date: 2021-02-09
+date: Last Modified
+date_created: 2021-02-10
 seo:
   title: '11ty-base'
   description: '11ty-base seo description'
   robots: 'index,follow'
 open_graph:
   use: true
+  type: 'website'
   title: '11ty-base og title'
   description: '11ty-base og description'
   images:

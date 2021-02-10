@@ -6,13 +6,9 @@
 
         {% include "partials/meta-seo.njk" %}
 
-        {% if open_graph.use is defined and open_graph.use == true %}
-            {% include "partials/meta-open-graph.njk" %}
-        {% endif %}
+        {% include "partials/meta-open-graph.njk" %}
 
-        {% if twitter_cards.use is defined and twitter_cards.use == true  %}
-            {% include "partials/meta-twitter-cards.njk" %}
-        {% endif %}
+        {% include "partials/meta-twitter-cards.njk" %}
 
         <link rel="stylesheet" href="{{ '/css/index.css' | url }}" />
 
